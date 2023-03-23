@@ -16,6 +16,7 @@
 		5AF78FEA29CBC1150050B4FA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FE929CBC1150050B4FA /* TabBarController.swift */; };
 		5AF78FEC29CBC18B0050B4FA /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */; };
 		5AF78FEE29CBC26B0050B4FA /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FED29CBC26B0050B4FA /* CalendarView.swift */; };
+		5AF78FF029CC9E440050B4FA /* HabitsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FEF29CC9E440050B4FA /* HabitsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		5AF78FE929CBC1150050B4FA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
 		5AF78FED29CBC26B0050B4FA /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		5AF78FEF29CC9E440050B4FA /* HabitsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		5AF78F8529CB619D0050B4FA /* habits */ = {
 			isa = PBXGroup;
 			children = (
+				5AF78FEF29CC9E440050B4FA /* HabitsData.swift */,
 				5AF78FE929CBC1150050B4FA /* TabBarController.swift */,
 				5AF78F8829CB619D0050B4FA /* ContentView.swift */,
 				5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */,
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AF78FEC29CBC18B0050B4FA /* HabitsApp.swift in Sources */,
+				5AF78FF029CC9E440050B4FA /* HabitsData.swift in Sources */,
 				5AF78FEA29CBC1150050B4FA /* TabBarController.swift in Sources */,
 				5AF78FEE29CBC26B0050B4FA /* CalendarView.swift in Sources */,
 				5AF78F8929CB619D0050B4FA /* ContentView.swift in Sources */,

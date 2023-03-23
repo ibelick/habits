@@ -8,11 +8,7 @@ struct Habit: Identifiable {
 }
 
 struct ContentView: View {
-    @State private var habits: [Habit] = [
-        Habit(name: "Drink 8 cups of water", frequency: "Daily"),
-        Habit(name: "Exercise for 30 minutes", frequency: "3 times per week"),
-        Habit(name: "Read for 30 minutes", frequency: "5 times per week")
-    ]
+    @EnvironmentObject var habitData: HabitData
     @State private var newHabitName: String = ""
     @State private var newHabitFrequency: String = "Daily"
     @State private var showAddHabitSheet: Bool = false
@@ -31,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(habits) { habit in
+                ForEach(habitData.habits) { habit in
                     HStack {
                         Text(habit.name)
                         Spacer()
@@ -72,19 +68,21 @@ struct ContentView: View {
     }
     
     func addHabit() {
-        habits.append(Habit(name: newHabitName, frequency: newHabitFrequency))
+        habitData.addHabit(Habit(name: newHabitName, frequency: newHabitFrequency))
         newHabitName = ""
         newHabitFrequency = "Daily"
         showAddHabitSheet = false
     }
     
     func delete(at offsets: IndexSet) {
-        habits.remove(atOffsets: offsets)
+        offsets.forEach { index in
+            habitData.deleteHabit(at: index)
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(HabitData())
     }
 }
