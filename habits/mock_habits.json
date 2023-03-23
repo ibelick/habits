@@ -1,0 +1,13 @@
+[    {        "name": "Drink 8 cups of water",        "frequency": "Daily",        "completionDates": []
+    },
+    {
+        "name": "Exercise for 30 minutes",
+        "frequency": "3 times per week",
+        "completionDates": []
+    },
+    {
+        "name": "Read for 30 minutes",
+        "frequency": "5 times per week",
+        "completionDates": []
+    }
+]

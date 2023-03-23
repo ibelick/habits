@@ -8,12 +8,10 @@
 import SwiftUI
 
 @main
-struct habitsApp: App {
-    let habitData = HabitData()
-
+struct HabitsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(habitData)
+            TabBarController()
         }
     }
 }

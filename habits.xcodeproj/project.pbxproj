@@ -17,6 +17,7 @@
 		5AF78FEC29CBC18B0050B4FA /* HabitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */; };
 		5AF78FEE29CBC26B0050B4FA /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FED29CBC26B0050B4FA /* CalendarView.swift */; };
 		5AF78FF029CC9E440050B4FA /* HabitsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FEF29CC9E440050B4FA /* HabitsData.swift */; };
+		5AF78FF229CCA70B0050B4FA /* HabitTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF78FF129CCA70B0050B4FA /* HabitTrackerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsApp.swift; sourceTree = "<group>"; };
 		5AF78FED29CBC26B0050B4FA /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5AF78FEF29CC9E440050B4FA /* HabitsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsData.swift; sourceTree = "<group>"; };
+		5AF78FF129CCA70B0050B4FA /* HabitTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerView.swift; sourceTree = "<group>"; };
+		5AF78FF329CCAA030050B4FA /* mock_habits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock_habits.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +109,11 @@
 				5AF78F8829CB619D0050B4FA /* ContentView.swift */,
 				5AF78FEB29CBC18B0050B4FA /* HabitsApp.swift */,
 				5AF78FED29CBC26B0050B4FA /* CalendarView.swift */,
+				5AF78FF129CCA70B0050B4FA /* HabitTrackerView.swift */,
 				5AF78F8A29CB619E0050B4FA /* Assets.xcassets */,
 				5AF78F8C29CB619E0050B4FA /* habits.entitlements */,
 				5AF78F8D29CB619E0050B4FA /* Preview Content */,
+				5AF78FF329CCAA030050B4FA /* mock_habits.json */,
 			);
 			path = habits;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AF78FF229CCA70B0050B4FA /* HabitTrackerView.swift in Sources */,
 				5AF78FEC29CBC18B0050B4FA /* HabitsApp.swift in Sources */,
 				5AF78FF029CC9E440050B4FA /* HabitsData.swift in Sources */,
 				5AF78FEA29CBC1150050B4FA /* TabBarController.swift in Sources */,
