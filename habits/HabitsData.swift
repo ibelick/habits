@@ -31,9 +31,7 @@ class HabitData: ObservableObject {
     }
     
     func toggleCompletion(for habits: [Habit], on date: Date) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: Calendar.current.startOfDay(for: date))
+        let dateString = formatDate(date: date)
         
         for habit in habits {
             if habit.completionDateIds.contains(dateString) {
@@ -43,6 +41,33 @@ class HabitData: ObservableObject {
             }
         }
         save()
+    }
+    
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    
+    func completedHabits() -> [Int] {
+        var completedHabits = Array(repeating: 0, count: 14)
+        
+        for habit in habits {
+            for i in 0..<14 {
+                let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
+                let dateString = formatDate(date: date)
+                
+                if habit.completionDateIds.contains(dateString) {
+                    completedHabits[i] += 1
+                }
+            }
+        }
+        
+        return completedHabits
+    }
+    
+    func reloadData() {
+        load()
     }
     
     private func save() {
