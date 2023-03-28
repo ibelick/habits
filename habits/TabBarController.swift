@@ -5,13 +5,15 @@ struct TabBarController: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UITabBarController {
         let tabBarController = UITabBarController()
-        let firstViewController = UIHostingController(rootView: ContentView().environmentObject(habitData))
-        let secondViewController = UIHostingController(rootView: CalendarView().environmentObject(habitData))
+        let todayViewController = UIHostingController(rootView: TodayView().environmentObject(habitData))
+        let habitCRUDViewController = UIHostingController(rootView: HabitCRUDView().environmentObject(habitData))
+        let calendarViewController = UIHostingController(rootView: CalendarView().environmentObject(habitData))
         
-        firstViewController.tabBarItem = UITabBarItem(title: "Habits", image: UIImage(systemName: "list.dash"), tag: 0)
-        secondViewController.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 1)
+        todayViewController.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "sun.max"), tag: 0)
+        habitCRUDViewController.tabBarItem = UITabBarItem(title: "Habits", image: UIImage(systemName: "list.dash"), tag: 1)
+        calendarViewController.tabBarItem = UITabBarItem(title: "Calendar", image: UIImage(systemName: "calendar"), tag: 2)
         
-        tabBarController.viewControllers = [firstViewController, secondViewController]
+        tabBarController.viewControllers = [todayViewController, calendarViewController, habitCRUDViewController]
         return tabBarController
     }
     
