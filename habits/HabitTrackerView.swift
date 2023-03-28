@@ -4,6 +4,12 @@ struct HabitTrackerView: View {
     @EnvironmentObject var habitData: HabitData
     @State var selectedHabits: [Habit] = []
     let date: Date
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
     
     var body: some View {
         VStack {
@@ -11,35 +17,31 @@ struct HabitTrackerView: View {
                 .font(.headline)
             
             ForEach(habitData.habits) { habit in
-                let completedToday = habit.completionDates.contains(date)
-                Toggle(isOn: Binding(get: {
-                    selectedHabits.contains { $0.id == habit.id }
-                }, set: { newValue in
-                    if newValue {
-                        selectedHabits.append(habit)
-                    } else {
-                        selectedHabits.removeAll { $0.id == habit.id }
+                let completedToday = habit.completionDateIds.contains(dateFormatter.string(from: date))
+                
+                Toggle(isOn: Binding(
+                    get: { selectedHabits.contains { $0.id == habit.id } },
+                    set: { newValue in
+                        if newValue {
+                            selectedHabits.append(habit)
+                        } else {
+                            selectedHabits.removeAll { $0.id == habit.id }
+                        }
                     }
-                })) {
+                )) {
                     Text(habit.name)
                         .foregroundColor(completedToday ? .green : .primary)
                 }
             }
             
-            Button(action: saveCompletion, label: {
+            Button(action: {
+                habitData.toggleCompletion(for: selectedHabits, on: date)
+                selectedHabits = []
+            }, label: {
                 Text("Save")
             })
             .disabled(selectedHabits.isEmpty)
         }
-    }
-    
-    func saveCompletion() {
-        for index in selectedHabits.indices {
-            if !selectedHabits[index].completionDates.contains(date) {
-                selectedHabits[index].completionDates.append(date)
-            }
-        }
-
     }
 }
 
