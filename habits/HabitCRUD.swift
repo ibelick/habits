@@ -1,12 +1,5 @@
 import SwiftUI
 
-struct Habit: Identifiable {
-    let id = UUID()
-    var name: String
-    var frequency: String
-    var completionDates: [Date] = []
-}
-
 struct HabitCRUDView: View {
     @EnvironmentObject var habitData: HabitData
     @State private var newHabitName: String = ""
