@@ -25,7 +25,7 @@ struct CalendarView: View {
                                 .fontWeight(.bold)
                                 .font(.title3)
                         })
-
+                        
                         Circle()
                             .fill(selectedDate == day ? Color.blue : Color.clear)
                             .frame(width: 20, height: 20)
@@ -36,7 +36,7 @@ struct CalendarView: View {
                     }
                 }
             }
-
+            
             HStack {
                 ForEach(range.dropFirst(7), id: \.self) { day in
                     VStack {
@@ -47,7 +47,7 @@ struct CalendarView: View {
                                 .fontWeight(.bold)
                                 .font(.title3)
                         })
-
+                        
                         Circle()
                             .fill(selectedDate == day ? Color.blue : Color.clear)
                             .frame(width: 20, height: 20)

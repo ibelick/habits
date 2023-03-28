@@ -13,16 +13,6 @@ struct TodayView: View {
     var body: some View {
         VStack {
             HabitTrackerView(date: date)
-            
-            Button(action: { toggleDayComplete() }, label: {
-                let completedHabits = habitData.habits.filter { $0.completionDateIds.contains(dateFormatter.string(from: date)) }
-                let buttonText = completedHabits.isEmpty ? "Complete All" : "Reset"
-                Text(buttonText)
-            })
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
         }
         .padding()
     }

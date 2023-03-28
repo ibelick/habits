@@ -16,32 +16,50 @@ struct HabitTrackerView: View {
             Text(date, style: .date)
                 .font(.headline)
             
-            ForEach(habitData.habits) { habit in
-                let completedToday = habit.completionDateIds.contains(dateFormatter.string(from: date))
-                
-                Toggle(isOn: Binding(
-                    get: { selectedHabits.contains { $0.id == habit.id } },
-                    set: { newValue in
-                        if newValue {
-                            selectedHabits.append(habit)
-                        } else {
-                            selectedHabits.removeAll { $0.id == habit.id }
-                        }
+            ScrollView {
+                LazyVStack(spacing: 16) {
+                    ForEach(habitData.habits) { habit in
+                        let isCompleted = habit.completionDateIds.contains(dateFormatter.string(from: date))
+                        HabitCardView(habit: habit, isCompleted: isCompleted, date: date)
                     }
-                )) {
-                    Text(habit.name)
-                        .foregroundColor(completedToday ? .green : .primary)
                 }
             }
-            
-            Button(action: {
-                habitData.toggleCompletion(for: selectedHabits, on: date)
-                selectedHabits = []
-            }, label: {
-                Text("Save")
-            })
-            .disabled(selectedHabits.isEmpty)
         }
+    }
+    
+}
+
+struct HabitCardView: View {
+    @EnvironmentObject var habitData: HabitData
+    var habit: Habit
+    @State var isCompleted: Bool
+    var date: Date
+    
+    var body: some View {
+        Button(action: {
+            self.isCompleted.toggle()
+            habitData.toggleCompletion(for: [habit], on: date)
+        }) {
+            VStack {
+                Text(habit.name)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(isCompleted ? .white : .primary)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(.gray, lineWidth: 2)
+            )
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(isCompleted ? Color.green : Color.white)
+            )
+            .frame(maxWidth: .infinity, minHeight: 80, alignment: .center)
+            .padding(.top, 4)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
