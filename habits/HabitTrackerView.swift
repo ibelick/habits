@@ -13,18 +13,15 @@ struct HabitTrackerView: View {
     
     var body: some View {
         VStack {
-            Text(date, style: .date)
-                .font(.headline)
-            
             ScrollView {
-                LazyVStack(spacing: 16) {
+                LazyVStack(spacing: 8) {
                     ForEach(habitData.habits) { habit in
                         let isCompleted = habit.completionDateIds.contains(dateFormatter.string(from: date))
                         HabitCardView(habit: habit, isCompleted: isCompleted, date: date)
                     }
                 }
             }
-        }
+        }.padding()
     }
     
 }
@@ -39,6 +36,7 @@ struct HabitCardView: View {
         Button(action: {
             self.isCompleted.toggle()
             habitData.toggleCompletion(for: [habit], on: date)
+            habitData.reloadData()
         }) {
             VStack {
                 Text(habit.name)
@@ -46,15 +44,15 @@ struct HabitCardView: View {
                     .fontWeight(.bold)
                     .foregroundColor(isCompleted ? .white : .primary)
             }
-            .padding(12)
+            .padding(16)
             .frame(maxWidth: .infinity, alignment: .center)
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 40)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
             )
             .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(isCompleted ? Color.green : Color.white)
+                RoundedRectangle(cornerRadius: 40)
+                    .fill(isCompleted ? Color("Primary") : Color.white)
             )
             .frame(maxWidth: .infinity, minHeight: 80, alignment: .center)
             .padding(.top, 4)

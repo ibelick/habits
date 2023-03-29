@@ -90,7 +90,11 @@ class HabitData: ObservableObject {
             
             habits = try decoder.decode([Habit].self, from: data)
         } catch {
-            print(error)
+            habits = [
+                Habit(name: "Drink water", frequency: "Daily"),
+                Habit(name: "Read for 30 minutes", frequency: "Daily"),
+                Habit(name: "Exercise for 1 hour", frequency: "Daily")
+            ]
         }
     }
     

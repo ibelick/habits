@@ -42,9 +42,14 @@ struct CalendarView: View {
         .sheet(item: $selectedDate, onDismiss: {
             habitData.reloadData()
         }) { date in
-            HabitTrackerView(date: date)
-                .environmentObject(habitData)
-                .navigationTitle(dateFormatter.string(from: date))
+            VStack {
+                Text(date, style: .date)
+                    .font(.headline)
+                    .padding()
+                HabitTrackerView(date: date)
+                    .environmentObject(habitData)
+                    .navigationTitle(dateFormatter.string(from: date))
+            }
         }
     }
 }
@@ -72,7 +77,6 @@ struct CalendarDayView: View {
     }
     
     private func getColorForPercentage(_ percentage: Double) -> Color {
-        print(percentage)
         switch percentage {
         case 0.0:
             return Color(UIColor.systemGray5)
