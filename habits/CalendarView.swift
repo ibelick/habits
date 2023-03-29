@@ -5,7 +5,7 @@ struct CalendarView: View {
     @State var selectedDate: Date? = nil
     
     let calendar = Calendar.current
-    let startDate = Date().addingTimeInterval(-13 * 24 * 60 * 60)
+    let startDate = Date().addingTimeInterval(-27 * 24 * 60 * 60)
     let endDate = Date()
     
     let dateFormatter: DateFormatter = {
@@ -16,46 +16,36 @@ struct CalendarView: View {
     
     var body: some View {
         VStack {
-            ForEach(getWeeks(), id: \.self) { week in
+            ForEach(0..<4) { rowIndex in
                 HStack(spacing: 4) {
-                    ForEach(week, id: \.self) { date in
-                        CalendarDayView(date: date, isCompleted: habitData.habits.contains { $0.completionDateIds.contains(dateFormatter.string(from: date)) })
-                            .onTapGesture {
-                                selectedDate = date
-                            }
+                    ForEach(0..<7) { columnIndex in
+                        let dayIndex = rowIndex * 7 + columnIndex
+                        if let date = calendar.date(byAdding: .day, value: dayIndex, to: startDate),
+                           calendar.isDate(date, equalTo: date, toGranularity: .day) {
+                            CalendarDayView(date: date, isCompleted: habitData.habits.contains { $0.completionDateIds.contains(dateFormatter.string(from: date)) })
+                                .onTapGesture {
+                                    selectedDate = date
+                                }
+                        } else if dayIndex == 27 {
+                            CalendarDayView(date: endDate, isCompleted: false)
+                                .onTapGesture {
+                                    selectedDate = endDate
+                                }
+                        } else {
+                            Spacer()
+                        }
                     }
                 }
             }
         }
-        .sheet(item: $selectedDate,  onDismiss: {
+        .padding(16)
+        .sheet(item: $selectedDate, onDismiss: {
             habitData.reloadData()
         }) { date in
             HabitTrackerView(date: date)
                 .environmentObject(habitData)
                 .navigationTitle(dateFormatter.string(from: date))
         }
-    }
-    
-    func getWeeks() -> [[Date]] {
-        var weeks: [[Date]] = []
-        var currentWeek: [Date] = []
-        var currentDate = startDate
-        
-        while currentDate <= endDate {
-            currentWeek.append(currentDate)
-            
-            if calendar.isDateInToday(currentDate) {
-                weeks.append(currentWeek)
-                break
-            } else if calendar.component(.weekday, from: currentDate) == 7 {
-                weeks.append(currentWeek)
-                currentWeek = []
-            }
-            
-            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
-        }
-        
-        return weeks
     }
 }
 
@@ -67,12 +57,12 @@ struct CalendarDayView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
             .fill(isCompleted ? Color.green : Color(UIColor.systemGray5))
-            .frame(width: 20, height: 20)
+            .frame(maxWidth: 50, maxHeight: 50)
             .overlay(
                 Text("\(Calendar.current.component(.day, from: date))")
                     .font(.caption)
                     .fontWeight(.semibold)
-                    .foregroundColor(isCompleted ? .white : .primary)
+                    .foregroundColor(isCompleted ? .white : Color("CustomColorName"))
             )
             .disabled(!habitData.habits.contains { $0.completionDateIds.contains(dateFormatter.string(from: date)) })
     }
@@ -96,3 +86,5 @@ struct CalendarView_Previews: PreviewProvider {
             .environmentObject(HabitData())
     }
 }
+
+
