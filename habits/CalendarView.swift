@@ -22,12 +22,12 @@ struct CalendarView: View {
                         let dayIndex = rowIndex * 7 + columnIndex
                         if let date = calendar.date(byAdding: .day, value: dayIndex, to: startDate),
                            calendar.isDate(date, equalTo: date, toGranularity: .day) {
-                            CalendarDayView(date: date, isCompleted: habitData.habits.contains { $0.completionDateIds.contains(dateFormatter.string(from: date)) })
+                            CalendarDayView(date: date)
                                 .onTapGesture {
                                     selectedDate = date
                                 }
                         } else if dayIndex == 27 {
-                            CalendarDayView(date: endDate, isCompleted: false)
+                            CalendarDayView(date: endDate)
                                 .onTapGesture {
                                     selectedDate = endDate
                                 }
@@ -51,21 +51,44 @@ struct CalendarView: View {
 
 struct CalendarDayView: View {
     var date: Date
-    var isCompleted: Bool
     @EnvironmentObject var habitData: HabitData
     
     var body: some View {
+        let habitsForDate = habitData.habits.filter {
+            $0.completionDateIds.contains(habitData.formatDate(date: date))
+        }
+        let percentageComplete = Double(habitsForDate.count) / Double(habitData.habits.count)
+        let backgroundColor = getColorForPercentage(percentageComplete)
+        
+        
         RoundedRectangle(cornerRadius: 12)
-            .fill(isCompleted ? Color.green : Color(UIColor.systemGray5))
+            .fill(backgroundColor)
             .frame(maxWidth: 50, maxHeight: 50)
             .overlay(
-                Text("\(Calendar.current.component(.day, from: date))")
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(isCompleted ? .white : Color("CustomColorName"))
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
             )
             .disabled(!habitData.habits.contains { $0.completionDateIds.contains(dateFormatter.string(from: date)) })
     }
+    
+    private func getColorForPercentage(_ percentage: Double) -> Color {
+        print(percentage)
+        switch percentage {
+        case 0.0:
+            return Color(UIColor.systemGray5)
+        case 0.01..<0.25:
+            return Color ("PrimaryLightest")
+        case 0.25..<0.5:
+            return Color("PrimaryMedium")
+        case 0.5..<0.75:
+            return Color("PrimaryDark")
+        case 0.75...1.0:
+            return Color("PrimaryDarkest")
+        default:
+            return Color(UIColor.systemGray5)
+        }
+    }
+    
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
